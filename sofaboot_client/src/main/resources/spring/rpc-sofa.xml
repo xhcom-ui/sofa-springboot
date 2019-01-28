@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sofa="http://sofastack.io/schema/sofaboot"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://sofastack.io/schema/sofaboot http://sofastack.io/schema/sofaboot.xsd"
+       default-autowire="byName">
+
+    <!--同步方式-->
+    <!-- bolt引用 -->
+    <sofa:reference id="boltHelloSyncServiceReference" interface="com.citydo.sofaboot_client.service.HelloSyncService">
+        <sofa:binding.bolt/>
+    </sofa:reference>
+
+    <!-- rest引用 -->
+    <sofa:reference id="restHelloSyncServiceReference" interface="com.citydo.sofaboot_client.service.HelloSyncService">
+        <sofa:binding.rest/>
+    </sofa:reference>
+
+    <!-- dubbo引用 -->
+    <sofa:reference id="dubboHelloSyncServiceReference" interface="com.citydo.sofaboot_client.service.HelloSyncService">
+        <sofa:binding.dubbo/>
+    </sofa:reference>
+
+    <!--单向方式-->
+    <!--<sofa:reference id="dubboHelloSyncServiceReference" interface="com.citydo.sofaboot_client.service.HelloSyncService">-->
+        <!--<sofa:binding.bolt>-->
+            <!--<sofa:global-attrs type="oneway"/>-->
+        <!--</sofa:binding.bolt>-->
+    <!--</sofa:reference>-->
+
+
+    <!--Future 方式-->
+    <sofa:reference id="helloFutureServiceReference" interface="com.citydo.sofaboot_client.service.HelloFutureService">
+        <sofa:binding.bolt>
+            <sofa:global-attrs type="future"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+
+
+    <!--回调方式-->
+    <bean id="callbackImpl" class="com.citydo.sofaboot_client.service.impl.CallbackImpl"/>
+    <sofa:reference id="helloCallbackServiceReference" interface="com.citydo.sofaboot_client.service.HelloCallbackService">
+        <sofa:binding.bolt>
+            <sofa:global-attrs type="callback" callback-ref="callbackImpl"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+
+    <sofa:reference id="sampleGenericServiceReference" interface="com.alipay.sofa.rpc.api.GenericService">
+        <sofa:binding.bolt>
+            <sofa:global-attrs generic-interface="com.ostenant.sofa.rpc.example.generic.SampleGenericService"/>
+        </sofa:binding.bolt>
+    </sofa:reference>
+
+
+</beans>

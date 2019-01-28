@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sofa="http://sofastack.io/schema/sofaboot"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://sofastack.io/schema/sofaboot   http://sofastack.io/schema/sofaboot.xsd"
+       default-autowire="byName">
+
+    <bean id="helloSynServiceImpl" class="com.citydo.sofaboot_server.service.impl.HelloSyncServiceImpl" />
+    <sofa:service ref="helloSynServiceImpl" interface="com.citydo.sofaboot_server.service.HelloSyncService">
+        <!--服务通过 bolt 协协议通道发布，底层基于 Netty 实现。-->
+        <sofa:binding.bolt/>
+        <!--服务通过 http 协议发布。-->
+        <sofa:binding.rest/>
+        <!--服务基于 dubbo 的协议通道发布。-->
+        <sofa:binding.dubbo/>
+    </sofa:service>
+
+    <!--Future方式-->
+    <bean id="helloFutureServiceImpl" class="com.citydo.sofaboot_server.service.impl.HelloFutureServiceImpl"/>
+    <sofa:service ref="helloFutureServiceImpl" interface="com.citydo.sofaboot_server.service.HelloFutureService">
+        <sofa:binding.bolt/>
+    </sofa:service>
+
+    <!--回调方式-->
+    <bean id="helloCallbackServiceImpl"  class="com.citydo.sofaboot_server.service.impl.HelloCallbackServiceImpl"/>
+    <sofa:service ref="helloCallbackServiceImpl" interface="com.citydo.sofaboot_server.service.HelloCallbackService">
+        <sofa:binding.bolt/>
+    </sofa:service>
+
+
+    <bean id="sampleGenericServiceImpl" class="com.citydo.sofaboot_server.service.impl.SampleGenericServiceImpl"/>
+    <sofa:service ref="sampleGenericServiceImpl" interface="com.citydo.sofaboot_server.service.SampleGenericService">
+        <sofa:binding.bolt/>
+    </sofa:service>
+
+</beans>
